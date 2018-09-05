@@ -7,12 +7,16 @@ import {
   TextInput
 } from 'react-native';
 
+import NavigationService from '../Navigator/NavigationService.js';
+
 export default class Lobby extends Component {
   constructor() {
     super()
   }
 
   render() {
+    console.log(this.props.navigation.state.params.newLobby)
+    const { newLobby, lobbyCaptain } = this.props.navigation.state.params
     return(
       <View style={styles.container}>
         <View style={styles.header}>
@@ -25,11 +29,11 @@ export default class Lobby extends Component {
             <Text style={styles.currentPlayerLabel}>You</Text>
             <View style={styles.currentPlayerTab}>
               <View style={styles.lobbyCaptain}>
-                <Text style={styles.lobbyCaptainIcon}>K</Text>
+                {lobbyCaptain === '#000000' && <Text style={styles.lobbyCaptainIcon}>K</Text>}
               </View>
               <View style={styles.currentPlayer}>
                 {/* {this.state.editCurrentPlayer && <TextInput/>} */}
-                <Text style={styles.currentPlayerText}>#0000000</Text>
+                <Text style={styles.currentPlayerText}>#000000</Text>
               </View>
               <View style={styles.editCurrentPlayer}>
                 <Text style={styles.editCurrentPlayerIcon}>E</Text>
@@ -44,7 +48,10 @@ export default class Lobby extends Component {
               <View style={styles.playersContent}>
                 <View style={styles.playerRow}>
                   <View style={styles.playerName}>
-                    <Text style={styles.playerNameText}>#000001</Text>
+                    <Text style={styles.playerNameText}>#000000</Text>
+                  </View>
+                  <View style={styles.playerCap}>
+                    {lobbyCaptain === '#000000' && <Text>CAP</Text>}
                   </View>
                   <View style={styles.playerReady}>
                     <Text style={styles.playerReadyIcon}>Ready?</Text>
@@ -54,6 +61,9 @@ export default class Lobby extends Component {
                   <View style={styles.playerName}>
                     <Text style={styles.playerNameText}>#000002</Text>
                   </View>
+                  <View style={styles.playerCap}>
+                    {lobbyCaptain === '#000002' && <Text>CAP</Text>}
+                  </View>
                   <View style={styles.playerReady}>
                     <Text style={styles.playerReadyIcon}>Ready?</Text>
                   </View>
@@ -61,6 +71,9 @@ export default class Lobby extends Component {
                 <View style={styles.playerRow}>
                   <View style={styles.playerName}>
                     <Text style={styles.playerNameText}>#000003</Text>
+                  </View>
+                  <View style={styles.playerCap}>
+                    {lobbyCaptain === '#000003' && <Text>CAP</Text>}
                   </View>
                   <View style={styles.playerReady}>
                     <Text style={styles.playerReadyIcon}>Ready?</Text>
@@ -78,7 +91,8 @@ export default class Lobby extends Component {
           </View>
           <View style={styles.selectionView}>
             <View style={styles.createButtonView}>
-              <TouchableOpacity style={styles.createButton}>
+              <TouchableOpacity style={styles.createButton}
+              onPress={() => NavigationService.navigate('CreateQuestions', {testing: 'can I see this?'})}>
                 <Text style={styles.createButtonText}>Create</Text>
               </TouchableOpacity>
             </View>
@@ -183,8 +197,13 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
   },
   playerName: {
-    flex: 6,
+    flex: 4,
     justifyContent: 'center',
+  },
+  playerCap: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   playerNameText: {
     fontSize: 30,

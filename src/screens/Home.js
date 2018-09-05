@@ -6,6 +6,8 @@ import {
   StyleSheet
 } from 'react-native';
 
+import NavigationService from '../Navigator/NavigationService.js';
+
 export default class Home extends Component {
   constructor() {
     super() 
@@ -25,12 +27,13 @@ export default class Home extends Component {
           </TouchableOpacity>
           <View style={styles.welcomeLabel}>
             <Text style={styles.welcomeText}>WELCOME</Text>
-            <Text style={styles.welcomeText}>#000000000000</Text>
+            <Text style={styles.welcomeText}>#000000</Text>
           </View>
         </View>
         <View style={styles.homeBottom}>
           <View style={styles.startLobbyButtonView}>
-            <TouchableOpacity style={styles.startLobbyButton}>
+            <TouchableOpacity style={styles.startLobbyButton}
+            onPress={() => NavigationService.navigate('Lobby', { newLobby: true, lobbyCaptain: '#000000' })}>
               <Text style={styles.startLobbyButtonText}>Start new lobby!</Text>
             </TouchableOpacity>
           </View>

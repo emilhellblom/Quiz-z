@@ -15,6 +15,7 @@ export default class CreateQuestions extends Component {
   }
 
   render() {
+    console.log(this.props.navigation.state.params.testing)
     return (
       <KeyboardAwareScrollView
         contentContainerStyle={{flex: 1, backgroundColor: '#EAF7F0' }}
