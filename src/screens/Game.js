@@ -25,7 +25,7 @@ export default class Game extends Component {
 
   componentDidMount() {
     const timerFunc = setInterval(this.counter, 1000)
-    this.setState({timerFunc, timerCount: 5})
+    this.setState({timerFunc, timerCount: 20})
   }
 
   nextQuestion = (answer, correctAnswer) => {
@@ -33,7 +33,7 @@ export default class Game extends Component {
     const newAnswer = {answer, correctAnswer}
     if (questionNr < 5) this.setState({questionNr: questionNr + 1, answeredQuestions: [...answeredQuestions, newAnswer]})
     if (questionNr === 5) {
-      NavigationService.navigate('Results', { results: [...answeredQuestions, newAnswer], player: '#000000', timeLeft: timerCount })
+      NavigationService.navigate('Results', { results: { answers: [...answeredQuestions, newAnswer], player: '#000000', timeLeft: timerCount }, amountOfQuestions: questions.length})
     }
   }
 
@@ -45,7 +45,7 @@ export default class Game extends Component {
       return this.setState({timerCount: i})
     } else {
       clearInterval(this.state.timerFunc)
-      NavigationService.navigate('Results', { results: answeredQuestions, player: '#000000', timeLeft: 0 })
+      NavigationService.navigate('Results', { results: { answers: answeredQuestions, player: '#000000', timeLeft: 0 }, amountOfQuestions: questions.length})
     }
   }
 
